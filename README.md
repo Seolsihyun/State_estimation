@@ -2,6 +2,18 @@
 
 이 저장소는 방학 중 직접 수정·실험한 15차원 InEKF, IMU bias 보정, CF231 learned-velocity dead reckoning을 한 곳에 정리한 것이다. 원본 데이터는 라이선스와 용량 문제로 포함하지 않았다. 실험 스크립트, 요약 수치, 구간별 궤적, 그림은 포함했다.
 
+## 코드 범위와 본인 작업
+
+실험을 시작할 때의 기반 코드는 [`andyjaehun/0722_filters`](https://github.com/andyjaehun/0722_filters)의 `4a342b6`이다. 이 저장소에서 방학 중 직접 추가·수정한 범위는 다음과 같다.
+
+- `filters/Hoon_invariant_kalman_filter_15D.py`: 고정 bias, 연속 IMU propagation, position/velocity update 수정
+- `filters/Hoon_invariant_kalman_analytic_15D.py`: left-invariant 오차 정의와 analytic Jacobian 수정
+- `utils/imu_bias.py`: 구간 데이터에서 IMU bias를 계산하는 코드 추가
+- `validation/`: EuRoC·CF231 loader, 실험 스크립트, ghaggin 비교 adapter, 결과 생성 코드 추가
+- `validation/results/`: 방학 중 실행한 수치, 궤적, 그림과 학습 checkpoint
+
+`models/`, 기존 `utils/`, 나머지 `filters/`는 위 작업의 import 의존성과 비교 기준을 유지하기 위해 함께 넣은 기반 코드이다. 이 파일들 전체를 본인이 새로 작성했다는 의미는 아니다.
+
 ## 수정한 문제
 
 1. 기존 sliding-window 실험은 창마다 GT `R, v, p`로 재초기화했다. 이 결과는 짧은 구간 drift이지 연속 dead reckoning 성능이 아니다. 최종 EuRoC 실험은 평가 시작점에서 한 번만 초기화하고 전체 구간을 연속 적분했다.
@@ -9,6 +21,8 @@
 3. InEKF의 오차 정의와 Jacobian이 혼재해 있었다. `ghaggin/invariant-ekf`의 left-invariant convention에 맞춰 보정식, 오차 순서, 위치·속도 Jacobian을 통일했다.
 4. IMU-only prediction에서 covariance만 바꾸면 nominal trajectory는 바뀌지 않는다. 따라서 순수 IMU 적분과 learned velocity measurement update를 구분해 비교했다.
 5. Run 5 GT가 학습이나 추론에 들어가지 않도록 CF231을 leave-one-run-out으로 재구성했다. Run 3/4/9/10으로 학습하고 Run 5는 초기 상태·초기 IMU 보정·이후 IMU만 사용했다.
+
+수정 전 실험의 해석상 문제와 이론 통일 기준은 [`validation/INEKF_REVIEW.md`](validation/INEKF_REVIEW.md)에 남겼다.
 
 ## 상태와 식
 
@@ -39,12 +53,13 @@ p(k+1) = p(k) + v(k)dt + R(k) Gamma2(phi) a dt^2 + 0.5 g dt^2
 - Lie group 연산: [`models/Hoon_lie_group_utils.py`](models/Hoon_lie_group_utils.py)
 - 예측·업데이트 보조: [`models/Hoon_invariant_inekf.py`](models/Hoon_invariant_inekf.py)
 
-`filters/` 안의 EKF, UKF, PF 구현도 방학 중 비교를 위해 작성한 15차원 코드라서 함께 남겼다. 최종 데이터셋 검증은 analytic InEKF를 기준으로 했다.
+`filters/` 안의 다른 EKF, UKF, PF는 실험 기반 코드이다. 방학 중 수정과 최종 데이터셋 검증은 위의 두 InEKF 파일을 기준으로 했다.
 
 ## 실험 흐름
 
 | 단계 | 실험 | 스크립트 | 결과 |
 |---|---|---|---|
+| 0 | CF231 Run 5, training-run transferable bias를 쓴 최초 순수 IMU 실험 | [`run_cf231_leave5_dead_reckoning.py`](validation/run_cf231_leave5_dead_reckoning.py) | 후속 bias 개선 실험으로 대체됨 |
 | 1 | EuRoC V1_01, 고정 bias 연속 IMU-only | [`run_euroc_continuous_inekf.py`](validation/run_euroc_continuous_inekf.py) | [`euroc_v1_01_continuous`](validation/results/euroc_v1_01_continuous) |
 | 2 | CF231 Run 5, 순수 IMU bias/내재오차 보정 | [`run_cf231_pure_imu_improved.py`](validation/run_cf231_pure_imu_improved.py) | [`cf231_run5_pure_imu_improved`](validation/results/cf231_run5_pure_imu_improved) |
 | 3 | Python analytic InEKF와 ghaggin C++ 일치 검증 | [`run_cf231_ghaggin_comparison.py`](validation/run_cf231_ghaggin_comparison.py) | [`cf231_run5_ghaggin_comparison`](validation/results/cf231_run5_ghaggin_comparison) |
@@ -88,7 +103,7 @@ p(k+1) = p(k) + v(k)dt + R(k) Gamma2(phi) a dt^2 + 0.5 g dt^2
 
 Python analytic InEKF와 ghaggin C++ 참조 구현의 최대 차이는 자세 `1.40e-13 deg`, 속도 `5.69e-12 m/s`, 위치 `5.88e-10 m`로 설정한 허용치를 통과했다. 이 검증은 현재 propagation convention이 참조 구현과 일치한다는 것을 확인하는 용도이며, 순수 IMU 위치 성능이 좋다는 의미는 아니다.
 
-최종 단계 그림: [`01_learned_trajectory_stages.png`](validation/results/cf231_imu_only_learned_inekf_stages/figures/01_learned_trajectory_stages.png), [`02_all_stage_errors.png`](validation/results/cf231_imu_only_learned_inekf_stages/figures/02_all_stage_errors.png).
+최종 단계 그림: [`01_learned_trajectory_stages.png`](validation/results/cf231_imu_only_learned_inekf_stages/figures/01_learned_trajectory_stages.png), [`02_all_stage_errors.png`](validation/results/cf231_imu_only_learned_inekf_stages/figures/02_all_stage_errors.png). 순수 IMU와 learned velocity 비교 그림은 [`build_cf231_pure_vs_learned_figures.py`](validation/build_cf231_pure_vs_learned_figures.py)로 다시 생성할 수 있다.
 
 ## 재현 방법
 
@@ -108,6 +123,9 @@ python3 -m validation.run_euroc_continuous_inekf
 
 # CF231 순수 IMU 보정
 python3 -m validation.run_cf231_pure_imu_improved
+
+# 순수 IMU와 learned velocity 비교 그림 재생성
+python3 -m validation.build_cf231_pure_vs_learned_figures
 
 # CF231 ExtraTrees -> shallow -> Small-TCN -> 최종 단계 비교
 python3 -m validation.run_cf231_learned_velocity_leave5
