@@ -64,7 +64,7 @@ p(k+1) = p(k) + v(k)dt + R(k) Gamma2(phi) a dt^2 + 0.5 g dt^2
 | 6 | 2초 raw IMU Small-TCN | [`run_cf231_small_tcn_velocity_inekf.py`](validation/run_cf231_small_tcn_velocity_inekf.py) | [`cf231_leave5_small_tcn_velocity_inekf`](validation/results/cf231_leave5_small_tcn_velocity_inekf) |
 | 7 | 속도 결합 방식과 AirIO-style uncertainty 단계 비교 | [`run_cf231_imu_only_learned_inekf_stages.py`](validation/run_cf231_imu_only_learned_inekf_stages.py) | [`cf231_imu_only_learned_inekf_stages`](validation/results/cf231_imu_only_learned_inekf_stages) |
 
-[`run_euroc_windowed_dr.py`](validation/run_euroc_windowed_dr.py)는 창 길이별 local drift를 보기 위한 진단용이다. 연속 dead-reckoning 결과로 해석하지 않는다.
+[`run_euroc_windowed_dr.py`](validation/run_euroc_windowed_dr.py)는 창 길이별 local drift를 보기 위한 진단용이다.
 
 ## 주요 결과
 
@@ -97,7 +97,7 @@ p(k+1) = p(k) + v(k)dt + R(k) Gamma2(phi) a dt^2 + 0.5 g dt^2
 
 순수 IMU 보정은 기존과 비교해 위치 RMSE를 77.46%, 최종 위치 오차를 81.18% 줄였지만 절대 오차는 여전히 크다. Small-TCN이 위치 수치는 가장 낮았다. 다만 2.395 m 결과는 예측 속도를 InEKF 밖에서 적분한 `loose` 결합이고, 실제 InEKF velocity update로 결합한 결과는 2.615 m이다. AirIO에서 착안한 body-velocity/uncertainty 모델은 이 데이터셋에서 성능이 좋아지지 않았다.
 
-Python analytic InEKF와 ghaggin C++ 참조 구현의 최대 차이는 자세 `1.40e-13 deg`, 속도 `5.69e-12 m/s`, 위치 `5.88e-10 m`로 설정한 허용치를 통과했다. 이 검증은 현재 propagation convention이 참조 구현과 일치한다는 것을 확인하는 용도이며, 순수 IMU 위치 성능이 좋다는 의미는 아니다.
+Python analytic InEKF와 ghaggin C++ 참조 구현의 최대 차이는 자세 `1.40e-13 deg`, 속도 `5.69e-12 m/s`, 위치 `5.88e-10 m`로 설정한 허용치를 통과했다.
 
 최종 단계 그림: [`01_learned_trajectory_stages.png`](validation/results/cf231_imu_only_learned_inekf_stages/figures/01_learned_trajectory_stages.png), [`02_all_stage_errors.png`](validation/results/cf231_imu_only_learned_inekf_stages/figures/02_all_stage_errors.png). 순수 IMU와 learned velocity 비교 그림은 [`build_cf231_pure_vs_learned_figures.py`](validation/build_cf231_pure_vs_learned_figures.py)로 다시 생성할 수 있다.
 
@@ -132,7 +132,6 @@ python3 -m validation.run_cf231_imu_only_learned_inekf_stages
 
 `최종 단계 비교` 스크립트에 `--reuse-trained`를 넘기면 포함된 `.pt` checkpoint를 사용해 필터·지표·그림만 다시 생성한다.
 
-ghaggin C++ 비교는 upstream 저장소가 추가로 필요하다. 이 저장소에는 직접 작성한 adapter [`validation/reference/ghaggin_cf231_runner.cpp`](validation/reference/ghaggin_cf231_runner.cpp)만 넣었다. 참조 코드는 `third_party/ghaggin-invariant-ekf` 위치에 받거나 `--reference-root`로 경로를 지정한다.
 
 ## 폴더 구조와 결과 파일
 
