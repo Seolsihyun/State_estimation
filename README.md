@@ -140,4 +140,4 @@ data/README.md           외부 데이터 배치 방법
 - CF231 Run 5의 초기 `R, v, p`는 GT를 사용했다. 정지 구간 gyro bias는 IMU 평균이고, accel bias는 정지 구간 가속도계 평균과 초기 자세에서 계산한 예상 중력의 차이다. 초기화 후 Run 5 GT는 평가에만 쓴다.
 - EuRoC fixed bias는 데이터셋의 GT bias에서 구했으므로 실제 센서의 online calibration 결과로 해석하지 않는다.
 - RPY는 pitch가 ±90°에 가까울 때 roll/yaw가 민감하다. 따라서 자세는 RPY와 SO(3) geodesic error를 함께 본다.
-- 저장소에 없는 것: 원본 CSV/EuRoC 데이터, Python cache, 중간 빌드 산출물, 33 MB ExtraTrees checkpoint, 발표 PDF/PPT, 중복 보고서.
+- 저장소에 없는 것: 원본 CSV/EuRoC 데이터, Python cache, 중간 빌드 산출물 등
