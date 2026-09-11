@@ -1,10 +1,8 @@
 # 방학 중 상태추정 실험 코드와 결과
 
-이 저장소는 방학 중 직접 수정·실험한 15차원 InEKF, IMU bias 보정, CF231 learned-velocity dead reckoning을 한 곳에 정리한 것이다. 원본 데이터는 라이선스와 용량 문제로 포함하지 않았다. 실험 스크립트, 요약 수치, 구간별 궤적, 그림은 포함했다.
+이 저장소는 방학 중 직접 수정·실험한 15차원 InEKF, IMU bias 보정, CF231 learned-velocity dead reckoning을 한 곳에 정리한 것이다.
 
-## 코드 범위와 본인 작업
-
-실험을 시작할 때의 기반 코드는 [`andyjaehun/0722_filters`](https://github.com/andyjaehun/0722_filters)의 `4a342b6`이다. 이 저장소에서 방학 중 직접 추가·수정한 범위는 다음과 같다.
+## 코드
 
 - `filters/Hoon_invariant_kalman_filter_15D.py`: 고정 bias, 연속 IMU propagation, position/velocity update 수정
 - `filters/Hoon_invariant_kalman_analytic_15D.py`: left-invariant 오차 정의와 analytic Jacobian 수정
@@ -12,11 +10,9 @@
 - `validation/`: EuRoC·CF231 loader, 실험 스크립트, ghaggin 비교 adapter, 결과 생성 코드 추가
 - `validation/results/`: 방학 중 실행한 수치, 궤적, 그림과 학습 checkpoint
 
-`models/`, 기존 `utils/`, 나머지 `filters/`는 위 작업의 import 의존성과 비교 기준을 유지하기 위해 함께 넣은 기반 코드이다. 이 파일들 전체를 본인이 새로 작성했다는 의미는 아니다.
-
 ## 수정한 문제
 
-1. 기존 sliding-window 실험은 창마다 GT `R, v, p`로 재초기화했다. 이 결과는 짧은 구간 drift이지 연속 dead reckoning 성능이 아니다. 최종 EuRoC 실험은 평가 시작점에서 한 번만 초기화하고 전체 구간을 연속 적분했다.
+1. 기존 sliding-window 실험은 창마다 GT `R, v, p`로 재초기화했다. 이 결과는 짧은 구간 drift이므로 최종 EuRoC 실험은 평가 시작점에서 한 번만 초기화하고 전체 구간을 연속 적분했다.
 2. 구간마다 GT bias를 사용하던 `oracle_start`는 최종 방법에서 제외했다. EuRoC propagation 검증은 데이터셋이 제공하는 처음 5초 bias의 평균 하나를 고정했다. CF231은 운동 시작 전 정지 구간을 IMU로 감지하여 한 번 bias를 구한 후 고정했다.
 3. InEKF의 오차 정의와 Jacobian이 혼재해 있었다. `ghaggin/invariant-ekf`의 left-invariant convention에 맞춰 보정식, 오차 순서, 위치·속도 Jacobian을 통일했다.
 4. IMU-only prediction에서 covariance만 바꾸면 nominal trajectory는 바뀌지 않는다. 따라서 순수 IMU 적분과 learned velocity measurement update를 구분해 비교했다.
