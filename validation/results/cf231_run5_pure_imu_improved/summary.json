@@ -1,0 +1,353 @@
+{
+  "configuration": {
+    "dataset": "data/cf231_leave_one_out/csv",
+    "training_runs": [
+      3,
+      9,
+      10
+    ],
+    "test_run": 5,
+    "duration_s": 181.32457421200002,
+    "samples": 18149,
+    "initial_gt_used": [
+      "full orientation",
+      "position",
+      "velocity"
+    ],
+    "run5_gt_used_after_initialization": false,
+    "updates_after_initialization": [],
+    "uses_position_or_velocity_measurement": false,
+    "uses_learned_velocity": false,
+    "uses_pwm": false,
+    "bias_evolution": "none; one value fixed for complete run",
+    "propagation": "InEKF nominal IMU prediction only"
+  },
+  "stationary_detector": {
+    "detector": "5 consecutive |gyro - initial median| > 0.01 rad/s",
+    "detected_motion_time_s": 3.0270709190000002,
+    "guard_time_s": 0.4,
+    "stationary_duration_s": 2.6270709190000003,
+    "uses_gt": false
+  },
+  "run5_fixed_session_calibration": {
+    "samples": 263,
+    "gyro_bias_rad_s": [
+      -0.0003308179411543403,
+      -9.213985507537671e-05,
+      3.601491713876055e-05
+    ],
+    "raw_accel_mean_m_s2": [
+      0.06951820627043327,
+      0.03641800366140899,
+      9.807607675774529
+    ],
+    "raw_accel_norm_m_s2": 9.807921664343837,
+    "radial_accel_bias_m_s2": [
+      9.013512463407203e-06,
+      4.7218440679744345e-06,
+      0.0012716236330643227
+    ],
+    "corrected_accel_norm_m_s2": 9.80665,
+    "expected_static_force_from_initial_gt_m_s2": [
+      -0.345909538349219,
+      -0.11318622000101342,
+      9.799893861332421
+    ],
+    "applied_accel_bias_m_s2": [
+      0.41542774461965226,
+      0.1496042236624224,
+      0.007713814442107392
+    ]
+  },
+  "applied_accel_bias_from_training_runs_m_s2": [
+    0.06161254114363732,
+    -0.0036821888882516,
+    0.005822573014150123
+  ],
+  "run5_radial_accel_bias_diagnostic_not_applied_m_s2": [
+    9.013512463407203e-06,
+    4.7218440679744345e-06,
+    0.0012716236330643227
+  ],
+  "training_gyro_intrinsic_fit": {
+    "training_dynamic_samples": {
+      "3": 9125,
+      "9": 3107,
+      "10": 2746
+    },
+    "training_gt_rate_range_rad_s": [
+      0.03,
+      2.0
+    ],
+    "robust_loss": "soft_l1, f_scale=0.05 rad/s",
+    "affine_body_from_sensor": [
+      [
+        0.9744586905757072,
+        0.03202571670138983,
+        0.05021729599882358
+      ],
+      [
+        0.0001276649295358332,
+        0.9236949839806579,
+        0.044639010839886445
+      ],
+      [
+        -0.04465871481101264,
+        -0.046670403296487924,
+        0.9615972308598606
+      ]
+    ],
+    "discarded_frame_rotation_rpy_deg": [
+      -2.7735546780105826,
+      2.756477505556184,
+      -1.033863710381671
+    ],
+    "applied_sensor_intrinsic_matrix": [
+      [
+        0.9753181298209194,
+        0.017580617944955725,
+        0.003102299264185005
+      ],
+      [
+        0.017580617944955725,
+        0.9252599054477557,
+        -0.0011071353150446685
+      ],
+      [
+        0.003102299264184988,
+        -0.0011071353150446635,
+        0.9639360987608147
+      ]
+    ],
+    "fit_cost": 96.32322075213455,
+    "fit_optimality": 1.1015826784568504e-07
+  },
+  "methods": {
+    "original_transferred_bias": {
+      "position_rmse_m": 2316.5834706171945,
+      "position_final_m": 5340.969161786751,
+      "position_max_m": 5340.969161786751,
+      "so3_rmse_deg": 4.61456972894081,
+      "so3_p95_deg": 6.248487570738013,
+      "so3_final_deg": 6.352476924032129,
+      "rpy_rmse_deg": [
+        2.5792613768285872,
+        2.1699569223812603,
+        3.1612060313096833
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.0025485601636004375,
+          "so3_error_deg": 0.19337109365334015
+        },
+        "5s": {
+          "position_error_m": 0.12480503042101254,
+          "so3_error_deg": 0.6715518076832038
+        },
+        "10s": {
+          "position_error_m": 0.5975125874390144,
+          "so3_error_deg": 1.8177942830196812
+        },
+        "20s": {
+          "position_error_m": 8.310938992919196,
+          "so3_error_deg": 1.9842616241746813
+        },
+        "30s": {
+          "position_error_m": 32.40081987649443,
+          "so3_error_deg": 2.6333794695433856
+        },
+        "60s": {
+          "position_error_m": 285.01445879283955,
+          "so3_error_deg": 3.7629714296740424
+        },
+        "120s": {
+          "position_error_m": 2071.346057501196,
+          "so3_error_deg": 5.7391911288329105
+        }
+      }
+    },
+    "fixed_session_bias": {
+      "position_rmse_m": 686.8550716419346,
+      "position_final_m": 1377.4494810262274,
+      "position_max_m": 1377.4494810262274,
+      "so3_rmse_deg": 3.7577471998555936,
+      "so3_p95_deg": 7.888742183626871,
+      "so3_final_deg": 9.344037957676035,
+      "rpy_rmse_deg": [
+        1.463883153807062,
+        3.359059027528521,
+        0.8413969376227013
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.002692600427363364,
+          "so3_error_deg": 0.1616733691998966
+        },
+        "5s": {
+          "position_error_m": 0.08286108083542854,
+          "so3_error_deg": 0.45581236727436586
+        },
+        "10s": {
+          "position_error_m": 0.2513844066989634,
+          "so3_error_deg": 1.6022821255705564
+        },
+        "20s": {
+          "position_error_m": 7.334631211628421,
+          "so3_error_deg": 0.9091512038768346
+        },
+        "30s": {
+          "position_error_m": 17.62558551139858,
+          "so3_error_deg": 1.2993116844322319
+        },
+        "60s": {
+          "position_error_m": 99.19070447892916,
+          "so3_error_deg": 1.4732802962852485
+        },
+        "120s": {
+          "position_error_m": 749.2282083392793,
+          "so3_error_deg": 1.3587916612459816
+        }
+      }
+    },
+    "full_fixed_calibration": {
+      "position_rmse_m": 522.2007203404737,
+      "position_final_m": 1005.4296165405234,
+      "position_max_m": 1005.4296165405234,
+      "so3_rmse_deg": 3.553516118948938,
+      "so3_p95_deg": 7.59610221920717,
+      "so3_final_deg": 8.752043234230054,
+      "rpy_rmse_deg": [
+        1.4125813510231067,
+        3.1509556449017886,
+        0.8301798596308071
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.00217451299623959,
+          "so3_error_deg": 0.16087039341947235
+        },
+        "5s": {
+          "position_error_m": 0.14046974648675617,
+          "so3_error_deg": 0.4108652504728094
+        },
+        "10s": {
+          "position_error_m": 0.84122114324171,
+          "so3_error_deg": 1.705199999323955
+        },
+        "20s": {
+          "position_error_m": 7.164606399804532,
+          "so3_error_deg": 0.7500923837413859
+        },
+        "30s": {
+          "position_error_m": 14.787388877253484,
+          "so3_error_deg": 1.280880571071939
+        },
+        "60s": {
+          "position_error_m": 70.42274890568022,
+          "so3_error_deg": 1.4899774411805977
+        },
+        "120s": {
+          "position_error_m": 601.2550218326212,
+          "so3_error_deg": 0.7300434997947132
+        }
+      }
+    }
+  },
+  "improvement_vs_original_percent": {
+    "position_rmse": 77.45815218989944,
+    "final_position_error": 81.17514656826496,
+    "so3_rmse": 22.99355459594318
+  },
+  "training_cross_validation": {
+    "3": {
+      "trained_on": [
+        9,
+        10
+      ],
+      "stationary_detector": {
+        "detector": "5 consecutive |gyro - initial median| > 0.01 rad/s",
+        "detected_motion_time_s": 3.4875086680000003,
+        "guard_time_s": 0.4,
+        "stationary_duration_s": 3.0,
+        "uses_gt": false
+      },
+      "methods": {
+        "endpoint_no_intrinsic": {
+          "position_rmse_m": 1662.8627599254053,
+          "position_final_m": 3954.6848628343396,
+          "so3_rmse_deg": 11.191299040470978
+        },
+        "previous_no_intrinsic": {
+          "position_rmse_m": 1580.598798660224,
+          "position_final_m": 3738.7859404481997,
+          "so3_rmse_deg": 10.518885038297963
+        },
+        "previous_full_calibration": {
+          "position_rmse_m": 1231.5621113484597,
+          "position_final_m": 2962.7464585309544,
+          "so3_rmse_deg": 13.188345565614757
+        }
+      }
+    },
+    "9": {
+      "trained_on": [
+        3,
+        10
+      ],
+      "stationary_detector": {
+        "detector": "5 consecutive |gyro - initial median| > 0.01 rad/s",
+        "detected_motion_time_s": 1.5068037930000002,
+        "guard_time_s": 0.4,
+        "stationary_duration_s": 1.106803793,
+        "uses_gt": false
+      },
+      "methods": {
+        "endpoint_no_intrinsic": {
+          "position_rmse_m": 28.788404253492118,
+          "position_final_m": 75.43821589845155,
+          "so3_rmse_deg": 1.942314832410158
+        },
+        "previous_no_intrinsic": {
+          "position_rmse_m": 30.923192240052852,
+          "position_final_m": 82.14718085825687,
+          "so3_rmse_deg": 1.853218067154111
+        },
+        "previous_full_calibration": {
+          "position_rmse_m": 29.232400627350014,
+          "position_final_m": 77.29948027583379,
+          "so3_rmse_deg": 1.7986413480539813
+        }
+      }
+    },
+    "10": {
+      "trained_on": [
+        3,
+        9
+      ],
+      "stationary_detector": {
+        "detector": "5 consecutive |gyro - initial median| > 0.01 rad/s",
+        "detected_motion_time_s": 5.547652753,
+        "guard_time_s": 0.4,
+        "stationary_duration_s": 3.0,
+        "uses_gt": false
+      },
+      "methods": {
+        "endpoint_no_intrinsic": {
+          "position_rmse_m": 47.10456504130174,
+          "position_final_m": 145.93991288779927,
+          "so3_rmse_deg": 3.1636495996039935
+        },
+        "previous_no_intrinsic": {
+          "position_rmse_m": 27.512999210405898,
+          "position_final_m": 85.30450937038152,
+          "so3_rmse_deg": 2.2342614240310916
+        },
+        "previous_full_calibration": {
+          "position_rmse_m": 20.364653577360492,
+          "position_final_m": 66.04982169983398,
+          "so3_rmse_deg": 2.203929409233922
+        }
+      }
+    }
+  }
+}

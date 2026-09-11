@@ -1,0 +1,334 @@
+{
+  "configuration": {
+    "dataset": "data/cf231_leave_one_out/csv",
+    "training_runs": [
+      3,
+      4,
+      9,
+      10
+    ],
+    "bias_runs": [
+      3,
+      9,
+      10
+    ],
+    "test_run": 5,
+    "model": "ExtraTreesRegressor (non-neural, non-deep)",
+    "trees": 160,
+    "window_samples": 200,
+    "window_seconds": 2.0024374999999948,
+    "feature_bins": 20,
+    "feature_dimensions": 270,
+    "training_stride": 10,
+    "run5_gt_used_for_training": false,
+    "run5_gt_used_during_inference": "initial state only; GT is loaded afterward for scoring",
+    "coupling": "InEKF attitude and learned translation are propagated separately"
+  },
+  "training_samples": {
+    "3": 794,
+    "4": 1240,
+    "9": 309,
+    "10": 350
+  },
+  "cross_validation": {
+    "per_run": {
+      "3": {
+        "samples": 794,
+        "rmse_m_s": [
+          0.05062996057861592,
+          0.05985274528978288,
+          0.038364051573608796
+        ],
+        "vector_rmse_m_s": 0.05039029165774675
+      },
+      "4": {
+        "samples": 1240,
+        "rmse_m_s": [
+          0.061158186280055926,
+          0.0725956954320639,
+          0.05516570492729225
+        ],
+        "vector_rmse_m_s": 0.06338694330448001
+      },
+      "9": {
+        "samples": 309,
+        "rmse_m_s": [
+          0.23828185697928392,
+          0.203601587168453,
+          0.08952939158109495
+        ],
+        "vector_rmse_m_s": 0.18819082657406558
+      },
+      "10": {
+        "samples": 350,
+        "rmse_m_s": [
+          0.24062286549372325,
+          0.3899022358994396,
+          0.16820057312051992
+        ],
+        "vector_rmse_m_s": 0.2817886617992664
+      }
+    },
+    "pooled_prediction_bias_m_s": [
+      0.008921808707304918,
+      0.005615267404143926,
+      -0.0022267901165294274
+    ],
+    "pooled_velocity_variance_m2_s2": [
+      0.016517857336549695,
+      0.02799733838622743,
+      0.0064318753932237115
+    ]
+  },
+  "fixed_calibration": {
+    "stationary_detector": {
+      "detector": "5 consecutive |gyro - initial median| > 0.01 rad/s",
+      "detected_motion_time_s": 3.0270709190000002,
+      "guard_time_s": 0.4,
+      "stationary_duration_s": 2.6270709190000003,
+      "uses_gt": false
+    },
+    "gyro_bias_rad_s": [
+      -0.0003308179411543403,
+      -9.213985507537671e-05,
+      3.601491713876055e-05
+    ],
+    "accel_bias_m_s2": [
+      0.41542774461965226,
+      0.1496042236624224,
+      0.007713814442107392
+    ],
+    "radial_accel_bias_not_applied_m_s2": [
+      9.013512463407203e-06,
+      4.7218440679744345e-06,
+      0.0012716236330643227
+    ],
+    "gyro_intrinsic_matrix": [
+      [
+        0.9753181298209194,
+        0.017580617944955725,
+        0.003102299264185005
+      ],
+      [
+        0.017580617944955725,
+        0.9252599054477557,
+        -0.0011071353150446685
+      ],
+      [
+        0.003102299264184988,
+        -0.0011071353150446635,
+        0.9639360987608147
+      ]
+    ],
+    "gyro_fit": {
+      "training_dynamic_samples": {
+        "3": 9125,
+        "9": 3107,
+        "10": 2746
+      },
+      "training_gt_rate_range_rad_s": [
+        0.03,
+        2.0
+      ],
+      "robust_loss": "soft_l1, f_scale=0.05 rad/s",
+      "affine_body_from_sensor": [
+        [
+          0.9744586905757072,
+          0.03202571670138983,
+          0.05021729599882358
+        ],
+        [
+          0.0001276649295358332,
+          0.9236949839806579,
+          0.044639010839886445
+        ],
+        [
+          -0.04465871481101264,
+          -0.046670403296487924,
+          0.9615972308598606
+        ]
+      ],
+      "discarded_frame_rotation_rpy_deg": [
+        -2.7735546780105826,
+        2.756477505556184,
+        -1.033863710381671
+      ],
+      "applied_sensor_intrinsic_matrix": [
+        [
+          0.9753181298209194,
+          0.017580617944955725,
+          0.003102299264185005
+        ],
+        [
+          0.017580617944955725,
+          0.9252599054477557,
+          -0.0011071353150446685
+        ],
+        [
+          0.003102299264184988,
+          -0.0011071353150446635,
+          0.9639360987608147
+        ]
+      ],
+      "fit_cost": 96.32322075213455,
+      "fit_optimality": 1.1015826784568504e-07
+    },
+    "session_info": {
+      "samples": 263,
+      "gyro_bias_rad_s": [
+        -0.0003308179411543403,
+        -9.213985507537671e-05,
+        3.601491713876055e-05
+      ],
+      "raw_accel_mean_m_s2": [
+        0.06951820627043327,
+        0.03641800366140899,
+        9.807607675774529
+      ],
+      "raw_accel_norm_m_s2": 9.807921664343837,
+      "radial_accel_bias_m_s2": [
+        9.013512463407203e-06,
+        4.7218440679744345e-06,
+        0.0012716236330643227
+      ],
+      "corrected_accel_norm_m_s2": 9.80665
+    }
+  },
+  "metrics": {
+    "pure_imu_full_fixed": {
+      "position_rmse_m": 522.2007203404737,
+      "position_final_m": 1005.4296165405234,
+      "position_max_m": 1005.4296165405234,
+      "so3_rmse_deg": 3.553516118948938,
+      "so3_p95_deg": 7.59610221920717,
+      "so3_final_deg": 8.752043234230054,
+      "rpy_rmse_deg": [
+        1.4125813510231067,
+        3.1509556449017886,
+        0.8301798596308071
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.00217451299623959,
+          "so3_error_deg": 0.16087039341947235
+        },
+        "5s": {
+          "position_error_m": 0.14046974648675617,
+          "so3_error_deg": 0.4108652504728094
+        },
+        "10s": {
+          "position_error_m": 0.84122114324171,
+          "so3_error_deg": 1.705199999323955
+        },
+        "20s": {
+          "position_error_m": 7.164606399804532,
+          "so3_error_deg": 0.7500923837413859
+        },
+        "30s": {
+          "position_error_m": 14.787388877253484,
+          "so3_error_deg": 1.280880571071939
+        },
+        "60s": {
+          "position_error_m": 70.42274890568022,
+          "so3_error_deg": 1.4899774411805977
+        },
+        "120s": {
+          "position_error_m": 601.2550218326212,
+          "so3_error_deg": 0.7300434997947132
+        }
+      }
+    },
+    "legacy_coupled_learned_velocity_inekf": {
+      "position_rmse_m": 4.391523000707137,
+      "position_final_m": 7.7469847671996686,
+      "position_max_m": 7.7615585519524055,
+      "so3_rmse_deg": 4.025788944257825,
+      "so3_p95_deg": 6.183307638854251,
+      "so3_final_deg": 5.0656173019637025,
+      "rpy_rmse_deg": [
+        1.156062232196962,
+        0.8663038451582759,
+        3.7584542531334573
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.0025485601636004375,
+          "so3_error_deg": 0.19337109365334015
+        },
+        "5s": {
+          "position_error_m": 0.4241290023069258,
+          "so3_error_deg": 0.6837138392311336
+        },
+        "10s": {
+          "position_error_m": 0.597572018207401,
+          "so3_error_deg": 1.589026101976305
+        },
+        "20s": {
+          "position_error_m": 0.49775291723524195,
+          "so3_error_deg": 1.6654387628495235
+        },
+        "30s": {
+          "position_error_m": 0.5090788031633392,
+          "so3_error_deg": 1.5553539653595294
+        },
+        "60s": {
+          "position_error_m": 1.4021496762297583,
+          "so3_error_deg": 2.7417370535806693
+        },
+        "120s": {
+          "position_error_m": 5.1691314022479276,
+          "so3_error_deg": 5.679892038602664
+        }
+      }
+    },
+    "shallow_velocity_fixed_attitude": {
+      "position_rmse_m": 4.243690122596134,
+      "position_final_m": 7.505729814288761,
+      "position_max_m": 7.507548656037203,
+      "so3_rmse_deg": 3.553516118948938,
+      "so3_p95_deg": 7.59610221920717,
+      "so3_final_deg": 8.752043234230054,
+      "rpy_rmse_deg": [
+        1.4125813510231067,
+        3.1509556449017886,
+        0.8301798596308071
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.0021745252598159887,
+          "so3_error_deg": 0.16087039341947235
+        },
+        "5s": {
+          "position_error_m": 0.3167586787640899,
+          "so3_error_deg": 0.4108652504728094
+        },
+        "10s": {
+          "position_error_m": 0.44416892520634765,
+          "so3_error_deg": 1.705199999323955
+        },
+        "20s": {
+          "position_error_m": 0.32304265650979114,
+          "so3_error_deg": 0.7500923837413859
+        },
+        "30s": {
+          "position_error_m": 0.6523923377899878,
+          "so3_error_deg": 1.280880571071939
+        },
+        "60s": {
+          "position_error_m": 1.4397489614508274,
+          "so3_error_deg": 1.4899774411805977
+        },
+        "120s": {
+          "position_error_m": 5.009504143335044,
+          "so3_error_deg": 0.7300434997947132
+        }
+      }
+    }
+  },
+  "interpretation": {
+    "is_deep_learning": false,
+    "run5_model_input": "IMU only after initial state",
+    "training_label": "GT-derived heading-frame velocity from runs 3/4/9/10",
+    "important_limitation": "A small residual velocity bias still integrates into long-horizon position drift; the method does not reproduce the full repeated figure-eight accurately."
+  }
+}

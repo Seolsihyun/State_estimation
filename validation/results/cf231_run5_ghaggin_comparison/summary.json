@@ -1,0 +1,194 @@
+{
+  "configuration": {
+    "dataset": "data/cf231_leave_one_out/csv",
+    "test_run": 5,
+    "bias_runs": [
+      3,
+      9,
+      10
+    ],
+    "reference_root": "third_party/ghaggin-invariant-ekf/inekf",
+    "reference_commit": "35855644064e4cfdfb67b83ff87b90af7f66fbf2",
+    "reference_gravity_m_s2": 9.81,
+    "reference_source_modified": false,
+    "reference_bias_handling": "the fixed bias is subtracted before addImu because the upstream class has no public bias setter",
+    "same_initial_rotation_velocity_position": true,
+    "uses_measurement_updates_for_fixed_methods": false,
+    "run5_gt_use": "one initial state and post-run evaluation only"
+  },
+  "fixed_bias": {
+    "gyro_rad_s": [
+      -3.580572859831723e-05,
+      -0.0003392062229923842,
+      0.0004275882628787161
+    ],
+    "accel_m_s2": [
+      0.06161254114363732,
+      -0.0036821888882516,
+      0.005822573014150123
+    ]
+  },
+  "initial_alignment": {
+    "corrected_initial_specific_force_m_s2": [
+      0.00836339135156508,
+      0.042474663223073666,
+      9.802537327133544
+    ],
+    "corrected_force_norm_m_s2": 9.80263291637391,
+    "imu_initial_rpy_deg": [
+      0.24826263113077823,
+      -0.04888350804148677,
+      0.7316923737867961
+    ],
+    "gt_body_initial_rpy_deg": [
+      2.097126443570445,
+      -0.7711523135679889,
+      0.7316923737867961
+    ]
+  },
+  "implementation_agreement": {
+    "max_so3_difference_deg": 1.403092269556711e-13,
+    "max_velocity_difference_m_s": 5.686812689280677e-12,
+    "max_position_difference_m": 5.881123700644241e-10,
+    "final_so3_difference_deg": 1.279579078816211e-13,
+    "final_velocity_difference_m_s": 5.686812689280677e-12,
+    "final_position_difference_m": 5.881123700644241e-10,
+    "passes_target": true
+  },
+  "acceptance_thresholds": {
+    "so3_difference_deg": 0.0001,
+    "velocity_difference_m_s": 0.0001,
+    "position_difference_m": 0.01
+  },
+  "gt_metrics": {
+    "ghaggin C++": {
+      "position_rmse_m": 2316.3970053742805,
+      "position_final_m": 5340.628021487247,
+      "position_max_m": 5340.628021487247,
+      "so3_rmse_deg": 4.614569728940785,
+      "so3_p95_deg": 6.248487570737982,
+      "so3_final_deg": 6.3524769240321195,
+      "rpy_rmse_deg": [
+        2.5792613768285295,
+        2.1699569223812567,
+        3.161206031309683
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.003959576499292004,
+          "so3_error_deg": 0.1933710936533405
+        },
+        "5s": {
+          "position_error_m": 0.1337295020029644,
+          "so3_error_deg": 0.6715518076832002
+        },
+        "10s": {
+          "position_error_m": 0.5918540782842535,
+          "so3_error_deg": 1.8177942830196754
+        },
+        "20s": {
+          "position_error_m": 8.276728944584464,
+          "so3_error_deg": 1.9842616241746671
+        },
+        "30s": {
+          "position_error_m": 32.335728570970154,
+          "so3_error_deg": 2.633379469543373
+        },
+        "60s": {
+          "position_error_m": 284.8623083753596,
+          "so3_error_deg": 3.7629714296740273
+        },
+        "120s": {
+          "position_error_m": 2071.1104316120527,
+          "so3_error_deg": 5.739191128832865
+        }
+      }
+    },
+    "analytic InEKF": {
+      "position_rmse_m": 2316.397005374276,
+      "position_final_m": 5340.628021487242,
+      "position_max_m": 5340.628021487242,
+      "so3_rmse_deg": 4.614569728940804,
+      "so3_p95_deg": 6.2484875707380105,
+      "so3_final_deg": 6.352476924032135,
+      "rpy_rmse_deg": [
+        2.57926137682858,
+        2.1699569223812594,
+        3.1612060313096806
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.003959576499291853,
+          "so3_error_deg": 0.19337109365334015
+        },
+        "5s": {
+          "position_error_m": 0.13372950200294736,
+          "so3_error_deg": 0.6715518076832038
+        },
+        "10s": {
+          "position_error_m": 0.5918540782842644,
+          "so3_error_deg": 1.8177942830196798
+        },
+        "20s": {
+          "position_error_m": 8.27672894458454,
+          "so3_error_deg": 1.9842616241746796
+        },
+        "30s": {
+          "position_error_m": 32.33572857097048,
+          "so3_error_deg": 2.633379469543383
+        },
+        "60s": {
+          "position_error_m": 284.86230837536044,
+          "so3_error_deg": 3.762971429674033
+        },
+        "120s": {
+          "position_error_m": 2071.110431612047,
+          "so3_error_deg": 5.739191128832908
+        }
+      }
+    },
+    "learned velocity + InEKF": {
+      "position_rmse_m": 4.317141395312099,
+      "position_final_m": 7.604167734608087,
+      "position_max_m": 7.621436003258996,
+      "so3_rmse_deg": 4.035102761018588,
+      "so3_p95_deg": 6.180945699574883,
+      "so3_final_deg": 5.109414309619156,
+      "rpy_rmse_deg": [
+        1.156177463392642,
+        0.8659305074883176,
+        3.7684867293945707
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.003959576499291853,
+          "so3_error_deg": 0.19337109365334015
+        },
+        "5s": {
+          "position_error_m": 0.4106408096974901,
+          "so3_error_deg": 0.6837422590005131
+        },
+        "10s": {
+          "position_error_m": 0.596286547874949,
+          "so3_error_deg": 1.5881737296839253
+        },
+        "20s": {
+          "position_error_m": 0.5194983260488996,
+          "so3_error_deg": 1.6663385512891862
+        },
+        "30s": {
+          "position_error_m": 0.5248678088560045,
+          "so3_error_deg": 1.5547353357093567
+        },
+        "60s": {
+          "position_error_m": 1.3595579811492562,
+          "so3_error_deg": 2.7384566989388337
+        },
+        "120s": {
+          "position_error_m": 5.081322922811746,
+          "so3_error_deg": 5.678272258858324
+        }
+      }
+    }
+  }
+}

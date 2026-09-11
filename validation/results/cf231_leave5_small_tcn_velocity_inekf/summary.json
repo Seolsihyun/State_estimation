@@ -1,0 +1,364 @@
+{
+  "configuration": {
+    "dataset": "data/cf231_leave_one_out/csv",
+    "training_runs": [
+      3,
+      4,
+      9,
+      10
+    ],
+    "bias_runs": [
+      3,
+      9,
+      10
+    ],
+    "test_run": 5,
+    "window_samples": 200,
+    "downsample": 2,
+    "training_stride": 5,
+    "model": "SmallTCN: stem + 3 residual temporal blocks",
+    "channels": 32,
+    "parameter_count": 36003,
+    "cv_epochs": 24,
+    "final_epochs": 32,
+    "run5_gt_used_for_training": false,
+    "run5_gt_used_during_inference": "initial state only; loaded afterward for scoring"
+  },
+  "training_samples": {
+    "3": 1585,
+    "4": 2492,
+    "9": 620,
+    "10": 701
+  },
+  "cross_validation": {
+    "per_run": {
+      "3": {
+        "samples": 1585,
+        "velocity_rmse_m_s": [
+          0.08663510531187057,
+          0.08727248013019562,
+          0.031178632751107216
+        ],
+        "velocity_bias_m_s": [
+          0.019171802327036858,
+          -0.002257992047816515,
+          -0.004089373629540205
+        ],
+        "trajectory_rmse_m": 3.3050964837020063,
+        "trajectory_final_m": 4.441838712307869,
+        "final_training_loss": 0.007367589252561511
+      },
+      "4": {
+        "samples": 2492,
+        "velocity_rmse_m_s": [
+          0.09295643121004105,
+          0.10059021413326263,
+          0.04356415197253227
+        ],
+        "velocity_bias_m_s": [
+          -0.02352064661681652,
+          0.005911288317292929,
+          0.0011007428402081132
+        ],
+        "trajectory_rmse_m": 7.438935878483351,
+        "trajectory_final_m": 14.729127340271372,
+        "final_training_loss": 0.009271194624438298
+      },
+      "9": {
+        "samples": 620,
+        "velocity_rmse_m_s": [
+          0.2769429683685303,
+          0.3092603385448456,
+          0.0916014090180397
+        ],
+        "velocity_bias_m_s": [
+          -0.05672925338149071,
+          0.05163902789354324,
+          -0.0017435381887480617
+        ],
+        "trajectory_rmse_m": 1.8848190754457346,
+        "trajectory_final_m": 3.0058291626890314,
+        "final_training_loss": 0.006384212597767994
+      },
+      "10": {
+        "samples": 701,
+        "velocity_rmse_m_s": [
+          0.30752700567245483,
+          0.2805623412132263,
+          0.1438731700181961
+        ],
+        "velocity_bias_m_s": [
+          0.004453287459909916,
+          0.017449911683797836,
+          0.018222276121377945
+        ],
+        "trajectory_rmse_m": 1.7823092300270575,
+        "trajectory_final_m": 2.4131577350897913,
+        "final_training_loss": 0.007541802051313156
+      }
+    },
+    "pooled_prediction_bias_m_s": [
+      -0.011166444048285484,
+      0.010263174772262573,
+      0.0014735475415363908
+    ],
+    "pooled_velocity_rmse_m_s": [
+      0.16517776250839233,
+      0.16767512261867523,
+      0.0693788006901741
+    ],
+    "pooled_bias_applied_to_run5": false,
+    "bias_reason": "Per-run cross-validation biases have inconsistent signs, so a pooled correction is not transferable."
+  },
+  "fixed_calibration": {
+    "stationary_detector": {
+      "detector": "5 consecutive |gyro - initial median| > 0.01 rad/s",
+      "detected_motion_time_s": 3.0270709190000002,
+      "guard_time_s": 0.4,
+      "stationary_duration_s": 2.6270709190000003,
+      "uses_gt": false
+    },
+    "gyro_bias_rad_s": [
+      -0.0003308179411543403,
+      -9.213985507537671e-05,
+      3.601491713876055e-05
+    ],
+    "accel_bias_m_s2": [
+      0.41542774461965226,
+      0.1496042236624224,
+      0.007713814442107392
+    ],
+    "radial_accel_bias_not_applied_m_s2": [
+      9.013512463407203e-06,
+      4.7218440679744345e-06,
+      0.0012716236330643227
+    ],
+    "gyro_intrinsic_matrix": [
+      [
+        0.9753181298209194,
+        0.017580617944955725,
+        0.003102299264185005
+      ],
+      [
+        0.017580617944955725,
+        0.9252599054477557,
+        -0.0011071353150446685
+      ],
+      [
+        0.003102299264184988,
+        -0.0011071353150446635,
+        0.9639360987608147
+      ]
+    ],
+    "gyro_fit": {
+      "training_dynamic_samples": {
+        "3": 9125,
+        "9": 3107,
+        "10": 2746
+      },
+      "training_gt_rate_range_rad_s": [
+        0.03,
+        2.0
+      ],
+      "robust_loss": "soft_l1, f_scale=0.05 rad/s",
+      "affine_body_from_sensor": [
+        [
+          0.9744586905757072,
+          0.03202571670138983,
+          0.05021729599882358
+        ],
+        [
+          0.0001276649295358332,
+          0.9236949839806579,
+          0.044639010839886445
+        ],
+        [
+          -0.04465871481101264,
+          -0.046670403296487924,
+          0.9615972308598606
+        ]
+      ],
+      "discarded_frame_rotation_rpy_deg": [
+        -2.7735546780105826,
+        2.756477505556184,
+        -1.033863710381671
+      ],
+      "applied_sensor_intrinsic_matrix": [
+        [
+          0.9753181298209194,
+          0.017580617944955725,
+          0.003102299264185005
+        ],
+        [
+          0.017580617944955725,
+          0.9252599054477557,
+          -0.0011071353150446685
+        ],
+        [
+          0.003102299264184988,
+          -0.0011071353150446635,
+          0.9639360987608147
+        ]
+      ],
+      "fit_cost": 96.32322075213455,
+      "fit_optimality": 1.1015826784568504e-07
+    },
+    "session_info": {
+      "samples": 263,
+      "gyro_bias_rad_s": [
+        -0.0003308179411543403,
+        -9.213985507537671e-05,
+        3.601491713876055e-05
+      ],
+      "raw_accel_mean_m_s2": [
+        0.06951820627043327,
+        0.03641800366140899,
+        9.807607675774529
+      ],
+      "raw_accel_norm_m_s2": 9.807921664343837,
+      "radial_accel_bias_m_s2": [
+        9.013512463407203e-06,
+        4.7218440679744345e-06,
+        0.0012716236330643227
+      ],
+      "corrected_accel_norm_m_s2": 9.80665
+    }
+  },
+  "metrics": {
+    "pure_imu_full_fixed": {
+      "position_rmse_m": 522.2007203404737,
+      "position_final_m": 1005.4296165405234,
+      "position_max_m": 1005.4296165405234,
+      "so3_rmse_deg": 3.553516118948938,
+      "so3_p95_deg": 7.59610221920717,
+      "so3_final_deg": 8.752043234230054,
+      "rpy_rmse_deg": [
+        1.4125813510231067,
+        3.1509556449017886,
+        0.8301798596308071
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.00217451299623959,
+          "so3_error_deg": 0.16087039341947235
+        },
+        "5s": {
+          "position_error_m": 0.14046974648675617,
+          "so3_error_deg": 0.4108652504728094
+        },
+        "10s": {
+          "position_error_m": 0.84122114324171,
+          "so3_error_deg": 1.705199999323955
+        },
+        "20s": {
+          "position_error_m": 7.164606399804532,
+          "so3_error_deg": 0.7500923837413859
+        },
+        "30s": {
+          "position_error_m": 14.787388877253484,
+          "so3_error_deg": 1.280880571071939
+        },
+        "60s": {
+          "position_error_m": 70.42274890568022,
+          "so3_error_deg": 1.4899774411805977
+        },
+        "120s": {
+          "position_error_m": 601.2550218326212,
+          "so3_error_deg": 0.7300434997947132
+        }
+      }
+    },
+    "extratrees_velocity_fixed_attitude": {
+      "position_rmse_m": 4.243690122596134,
+      "position_final_m": 7.505729814288761,
+      "position_max_m": 7.507548656037203,
+      "so3_rmse_deg": 3.553516118948938,
+      "so3_p95_deg": 7.59610221920717,
+      "so3_final_deg": 8.752043234230054,
+      "rpy_rmse_deg": [
+        1.4125813510231067,
+        3.1509556449017886,
+        0.8301798596308071
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.0021745252598159887,
+          "so3_error_deg": 0.16087039341947235
+        },
+        "5s": {
+          "position_error_m": 0.3167586787640899,
+          "so3_error_deg": 0.4108652504728094
+        },
+        "10s": {
+          "position_error_m": 0.44416892520634765,
+          "so3_error_deg": 1.705199999323955
+        },
+        "20s": {
+          "position_error_m": 0.32304265650979114,
+          "so3_error_deg": 0.7500923837413859
+        },
+        "30s": {
+          "position_error_m": 0.6523923377899878,
+          "so3_error_deg": 1.280880571071939
+        },
+        "60s": {
+          "position_error_m": 1.4397489614508274,
+          "so3_error_deg": 1.4899774411805977
+        },
+        "120s": {
+          "position_error_m": 5.009504143335044,
+          "so3_error_deg": 0.7300434997947132
+        }
+      }
+    },
+    "small_tcn_velocity_fixed_attitude": {
+      "position_rmse_m": 2.395497256681568,
+      "position_final_m": 2.8398773426015262,
+      "position_max_m": 3.6349764780827742,
+      "so3_rmse_deg": 3.553516118948938,
+      "so3_p95_deg": 7.59610221920717,
+      "so3_final_deg": 8.752043234230054,
+      "rpy_rmse_deg": [
+        1.4125813510231067,
+        3.1509556449017886,
+        0.8301798596308071
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.0021745252598159887,
+          "so3_error_deg": 0.16087039341947235
+        },
+        "5s": {
+          "position_error_m": 0.1338340670194716,
+          "so3_error_deg": 0.4108652504728094
+        },
+        "10s": {
+          "position_error_m": 0.3067179055013908,
+          "so3_error_deg": 1.705199999323955
+        },
+        "20s": {
+          "position_error_m": 0.9067557369704106,
+          "so3_error_deg": 0.7500923837413859
+        },
+        "30s": {
+          "position_error_m": 1.2639282816508604,
+          "so3_error_deg": 1.280880571071939
+        },
+        "60s": {
+          "position_error_m": 2.2548659728619413,
+          "so3_error_deg": 1.4899774411805977
+        },
+        "120s": {
+          "position_error_m": 2.6853578648289216,
+          "so3_error_deg": 0.7300434997947132
+        }
+      }
+    }
+  },
+  "interpretation": {
+    "comparison": "Both learned methods use the same fixed-bias InEKF attitude; only the IMU-to-velocity regressor differs.",
+    "shallow_model": "ExtraTrees on hand-compressed two-second IMU features.",
+    "tcn_model": "Small temporal convolutional network on the raw two-second IMU sequence."
+  },
+  "final_training_loss": 0.005487719583509697
+}

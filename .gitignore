@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.idea/
+.vscode/
+
+# Raw datasets are stored separately.
+data/*
+!data/README.md
+
+# Generated intermediate artifacts.
+validation/results/**/build/
+validation/results/**/*.joblib
+validation/results/**/reference_input.csv
+validation/results/**/reference_output.csv
+validation/results/**/*.pdf
+validation/results/**/*.pptx
+validation/results/**/report.md

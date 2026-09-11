@@ -1,0 +1,696 @@
+{
+  "protocol": {
+    "dataset": "data/cf231_leave_one_out/csv",
+    "training_runs": [
+      3,
+      4,
+      9,
+      10
+    ],
+    "bias_runs": [
+      3,
+      9,
+      10
+    ],
+    "validation_run_for_uncertainty": 10,
+    "test_run": 5,
+    "test_runtime_inputs": "initial state, initial fixed IMU calibration, then Run-5 IMU only",
+    "run5_gt_during_inference": false,
+    "excluded_inputs": [
+      "PWM",
+      "thrust",
+      "GNSS",
+      "camera",
+      "bounded-motion constraint"
+    ],
+    "window_samples": 200,
+    "window_seconds": 2.0024374999999948,
+    "update_stride": 10,
+    "update_period_s": 0.10012187499999975,
+    "network_parameters": 38543,
+    "fixed_bias_policy": "one value per run, estimated once from the initial IMU-only stationary detector and frozen"
+  },
+  "training_session_calibration": {
+    "3": {
+      "stationary_seconds": 3.0,
+      "gyro_bias_rad_s": [
+        1.5929089811008524e-05,
+        0.00026115008175612913,
+        -5.235143334854029e-05
+      ],
+      "accel_bias_m_s2": [
+        -0.09246092942808634,
+        0.13229221050345238,
+        0.0007851632608186776
+      ],
+      "samples": 1585
+    },
+    "4": {
+      "stationary_seconds": 3.0,
+      "gyro_bias_rad_s": [
+        1.1888500594002662e-05,
+        0.00013671952311203382,
+        0.000341544230806475
+      ],
+      "accel_bias_m_s2": [
+        -0.0694482797492261,
+        0.1298494664047031,
+        0.004585873454203693
+      ],
+      "samples": 2492
+    },
+    "9": {
+      "stationary_seconds": 1.106803793,
+      "gyro_bias_rad_s": [
+        -0.0005136351297144422,
+        -0.00043025004747243405,
+        0.00046161924370637986
+      ],
+      "accel_bias_m_s2": [
+        0.26484181260210504,
+        0.04947858830153089,
+        0.008281132117392787
+      ],
+      "samples": 620
+    },
+    "10": {
+      "stationary_seconds": 3.0,
+      "gyro_bias_rad_s": [
+        -0.0002192612340784836,
+        -0.0007823956576114229,
+        0.0003698875780415482
+      ],
+      "accel_bias_m_s2": [
+        0.2684107570245403,
+        0.11436923525261047,
+        0.016016232764620497
+      ],
+      "samples": 701
+    }
+  },
+  "test_fixed_calibration": {
+    "stationary_detector": {
+      "detector": "5 consecutive |gyro - initial median| > 0.01 rad/s",
+      "detected_motion_time_s": 3.0270709190000002,
+      "guard_time_s": 0.4,
+      "stationary_duration_s": 2.6270709190000003,
+      "uses_gt": false
+    },
+    "gyro_bias_rad_s": [
+      -0.0003308179411543403,
+      -9.213985507537671e-05,
+      3.601491713876055e-05
+    ],
+    "accel_bias_m_s2": [
+      0.41542774461965226,
+      0.1496042236624224,
+      0.007713814442107392
+    ],
+    "radial_accel_bias_not_applied_m_s2": [
+      9.013512463407203e-06,
+      4.7218440679744345e-06,
+      0.0012716236330643227
+    ],
+    "gyro_intrinsic_matrix": [
+      [
+        0.9753181298209194,
+        0.017580617944955725,
+        0.003102299264185005
+      ],
+      [
+        0.017580617944955725,
+        0.9252599054477557,
+        -0.0011071353150446685
+      ],
+      [
+        0.003102299264184988,
+        -0.0011071353150446635,
+        0.9639360987608147
+      ]
+    ],
+    "gyro_fit": {
+      "training_dynamic_samples": {
+        "3": 9125,
+        "9": 3107,
+        "10": 2746
+      },
+      "training_gt_rate_range_rad_s": [
+        0.03,
+        2.0
+      ],
+      "robust_loss": "soft_l1, f_scale=0.05 rad/s",
+      "affine_body_from_sensor": [
+        [
+          0.9744586905757072,
+          0.03202571670138983,
+          0.05021729599882358
+        ],
+        [
+          0.0001276649295358332,
+          0.9236949839806579,
+          0.044639010839886445
+        ],
+        [
+          -0.04465871481101264,
+          -0.046670403296487924,
+          0.9615972308598606
+        ]
+      ],
+      "discarded_frame_rotation_rpy_deg": [
+        -2.7735546780105826,
+        2.756477505556184,
+        -1.033863710381671
+      ],
+      "applied_sensor_intrinsic_matrix": [
+        [
+          0.9753181298209194,
+          0.017580617944955725,
+          0.003102299264185005
+        ],
+        [
+          0.017580617944955725,
+          0.9252599054477557,
+          -0.0011071353150446685
+        ],
+        [
+          0.003102299264184988,
+          -0.0011071353150446635,
+          0.9639360987608147
+        ]
+      ],
+      "fit_cost": 96.32322075213455,
+      "fit_optimality": 1.1015826784568504e-07
+    },
+    "session_info": {
+      "samples": 263,
+      "gyro_bias_rad_s": [
+        -0.0003308179411543403,
+        -9.213985507537671e-05,
+        3.601491713876055e-05
+      ],
+      "raw_accel_mean_m_s2": [
+        0.06951820627043327,
+        0.03641800366140899,
+        9.807607675774529
+      ],
+      "raw_accel_norm_m_s2": 9.807921664343837,
+      "radial_accel_bias_m_s2": [
+        9.013512463407203e-06,
+        4.7218440679744345e-06,
+        0.0012716236330643227
+      ],
+      "corrected_accel_norm_m_s2": 9.80665
+    },
+    "stationary_seconds": 2.6270709190000003,
+    "gyro_intrinsic_fit": {
+      "training_dynamic_samples": {
+        "3": 9125,
+        "9": 3107,
+        "10": 2746
+      },
+      "training_gt_rate_range_rad_s": [
+        0.03,
+        2.0
+      ],
+      "robust_loss": "soft_l1, f_scale=0.05 rad/s",
+      "affine_body_from_sensor": [
+        [
+          0.9744586905757072,
+          0.03202571670138983,
+          0.05021729599882358
+        ],
+        [
+          0.0001276649295358332,
+          0.9236949839806579,
+          0.044639010839886445
+        ],
+        [
+          -0.04465871481101264,
+          -0.046670403296487924,
+          0.9615972308598606
+        ]
+      ],
+      "discarded_frame_rotation_rpy_deg": [
+        -2.7735546780105826,
+        2.756477505556184,
+        -1.033863710381671
+      ],
+      "applied_sensor_intrinsic_matrix": [
+        [
+          0.9753181298209194,
+          0.017580617944955725,
+          0.003102299264185005
+        ],
+        [
+          0.017580617944955725,
+          0.9252599054477557,
+          -0.0011071353150446685
+        ],
+        [
+          0.003102299264184988,
+          -0.0011071353150446635,
+          0.9639360987608147
+        ]
+      ],
+      "fit_cost": 96.32322075213455,
+      "fit_optimality": 1.1015826784568504e-07
+    }
+  },
+  "validation_uncertainty_calibration": {
+    "airio_velocity_inekf": {
+      "velocity_rmse_m_s": [
+        0.5573276281356812,
+        0.27627134323120117,
+        0.2336336225271225
+      ],
+      "velocity_bias_m_s": [
+        0.3008262515068054,
+        -0.027492953464388847,
+        -0.02436150796711445
+      ],
+      "raw_sigma_mean_m_s": [
+        0.09694039076566696,
+        0.11229405552148819,
+        0.05823220685124397
+      ],
+      "sigma_scale": [
+        10.0,
+        2.67655611038208,
+        4.7158379554748535
+      ],
+      "calibrated_1sigma_coverage": [
+        0.6847360912981455,
+        0.7104136947218259,
+        0.8273894436519258
+      ],
+      "calibrated_2sigma_coverage": [
+        0.8002853067047075,
+        0.9386590584878745,
+        0.948644793152639
+      ],
+      "final_loss": {
+        "total": -0.06265312783485122,
+        "velocity": 0.01374155737165015,
+        "uncertainty": -1.5284373393737942,
+        "displacement": 0.5169193913879764
+      }
+    },
+    "airio_displacement_inekf": {
+      "velocity_rmse_m_s": [
+        0.40426477789878845,
+        0.2755126953125,
+        0.2193877398967743
+      ],
+      "velocity_bias_m_s": [
+        0.11286672949790955,
+        0.00687957601621747,
+        0.04087885469198227
+      ],
+      "raw_sigma_mean_m_s": [
+        0.13941815495491028,
+        0.16039353609085083,
+        0.0695662647485733
+      ],
+      "sigma_scale": [
+        3.0616064071655273,
+        1.7385820150375366,
+        3.4001309871673584
+      ],
+      "calibrated_1sigma_coverage": [
+        0.5463623395149786,
+        0.8102710413694721,
+        0.7917261055634808
+      ],
+      "calibrated_2sigma_coverage": [
+        0.9942938659058488,
+        0.9386590584878745,
+        0.912981455064194
+      ],
+      "final_loss": {
+        "total": -0.038720828242090784,
+        "velocity": 0.01683083468838362,
+        "uncertainty": -1.4363651995154323,
+        "displacement": 0.046386242887587754
+      }
+    }
+  },
+  "filter_diagnostics": {
+    "airio_velocity_inekf": {
+      "candidate_updates": 1795,
+      "accepted_updates": 1792,
+      "rejected_updates": 3,
+      "acceptance_rate": 0.9983286908077994,
+      "mahalanobis_median": 1.135590893360332,
+      "mahalanobis_p95": 4.967405917776848
+    },
+    "airio_displacement_inekf": {
+      "candidate_updates": 1795,
+      "accepted_updates": 1732,
+      "rejected_updates": 63,
+      "acceptance_rate": 0.9649025069637883,
+      "mahalanobis_median": 3.5185635015419856,
+      "mahalanobis_p95": 13.193082509968606
+    }
+  },
+  "metrics": {
+    "fixed_bias_imu": {
+      "position_rmse_m": 522.2007203404737,
+      "position_final_m": 1005.4296165405234,
+      "position_max_m": 1005.4296165405234,
+      "so3_rmse_deg": 3.553516118948938,
+      "so3_p95_deg": 7.59610221920717,
+      "so3_final_deg": 8.752043234230054,
+      "rpy_rmse_deg": [
+        1.4125813510231067,
+        3.1509556449017886,
+        0.8301798596308071
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.00217451299623959,
+          "so3_error_deg": 0.16087039341947235
+        },
+        "5s": {
+          "position_error_m": 0.14046974648675617,
+          "so3_error_deg": 0.4108652504728094
+        },
+        "10s": {
+          "position_error_m": 0.84122114324171,
+          "so3_error_deg": 1.705199999323955
+        },
+        "20s": {
+          "position_error_m": 7.164606399804532,
+          "so3_error_deg": 0.7500923837413859
+        },
+        "30s": {
+          "position_error_m": 14.787388877253484,
+          "so3_error_deg": 1.280880571071939
+        },
+        "60s": {
+          "position_error_m": 70.42274890568022,
+          "so3_error_deg": 1.4899774411805977
+        },
+        "120s": {
+          "position_error_m": 601.2550218326212,
+          "so3_error_deg": 0.7300434997947132
+        }
+      }
+    },
+    "learned_velocity_inekf": {
+      "position_rmse_m": 4.391523000707137,
+      "position_final_m": 7.7469847671996686,
+      "position_max_m": 7.7615585519524055,
+      "so3_rmse_deg": 4.025788944257825,
+      "so3_p95_deg": 6.183307638854251,
+      "so3_final_deg": 5.0656173019637025,
+      "rpy_rmse_deg": [
+        1.156062232196962,
+        0.8663038451582759,
+        3.7584542531334573
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.0025485601636004375,
+          "so3_error_deg": 0.19337109365334015
+        },
+        "5s": {
+          "position_error_m": 0.4241290023069258,
+          "so3_error_deg": 0.6837138392311336
+        },
+        "10s": {
+          "position_error_m": 0.597572018207401,
+          "so3_error_deg": 1.589026101976305
+        },
+        "20s": {
+          "position_error_m": 0.49775291723524195,
+          "so3_error_deg": 1.6654387628495235
+        },
+        "30s": {
+          "position_error_m": 0.5090788031633392,
+          "so3_error_deg": 1.5553539653595294
+        },
+        "60s": {
+          "position_error_m": 1.4021496762297583,
+          "so3_error_deg": 2.7417370535806693
+        },
+        "120s": {
+          "position_error_m": 5.1691314022479276,
+          "so3_error_deg": 5.679892038602664
+        }
+      }
+    },
+    "small_tcn_loose": {
+      "position_rmse_m": 2.395497256681568,
+      "position_final_m": 2.8398773426015262,
+      "position_max_m": 3.6349764780827742,
+      "so3_rmse_deg": 3.553516118948938,
+      "so3_p95_deg": 7.59610221920717,
+      "so3_final_deg": 8.752043234230054,
+      "rpy_rmse_deg": [
+        1.4125813510231067,
+        3.1509556449017886,
+        0.8301798596308071
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.0021745252598159887,
+          "so3_error_deg": 0.16087039341947235
+        },
+        "5s": {
+          "position_error_m": 0.1338340670194716,
+          "so3_error_deg": 0.4108652504728094
+        },
+        "10s": {
+          "position_error_m": 0.3067179055013908,
+          "so3_error_deg": 1.705199999323955
+        },
+        "20s": {
+          "position_error_m": 0.9067557369704106,
+          "so3_error_deg": 0.7500923837413859
+        },
+        "30s": {
+          "position_error_m": 1.2639282816508604,
+          "so3_error_deg": 1.280880571071939
+        },
+        "60s": {
+          "position_error_m": 2.2548659728619413,
+          "so3_error_deg": 1.4899774411805977
+        },
+        "120s": {
+          "position_error_m": 2.6853578648289216,
+          "so3_error_deg": 0.7300434997947132
+        }
+      }
+    },
+    "small_tcn_heading_inekf": {
+      "position_rmse_m": 2.615074792852342,
+      "position_final_m": 3.247243911142728,
+      "position_max_m": 3.8473942283115834,
+      "so3_rmse_deg": 1.8001928063251784,
+      "so3_p95_deg": 2.926536237760754,
+      "so3_final_deg": 0.4625662490326801,
+      "rpy_rmse_deg": [
+        1.1017630277832393,
+        0.8408122998270049,
+        1.1492909825551516
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.00217451299623959,
+          "so3_error_deg": 0.16087039341947243
+        },
+        "5s": {
+          "position_error_m": 0.16422606564940492,
+          "so3_error_deg": 0.4998881404003972
+        },
+        "10s": {
+          "position_error_m": 0.3215810180479797,
+          "so3_error_deg": 1.4023627704699235
+        },
+        "20s": {
+          "position_error_m": 0.9038957626263254,
+          "so3_error_deg": 0.9014233956984894
+        },
+        "30s": {
+          "position_error_m": 1.1951444856188647,
+          "so3_error_deg": 0.8416493114753308
+        },
+        "60s": {
+          "position_error_m": 2.293233485717817,
+          "so3_error_deg": 1.3884295309474957
+        },
+        "120s": {
+          "position_error_m": 3.0039643984547166,
+          "so3_error_deg": 2.1102614696558306
+        }
+      }
+    },
+    "airio_velocity_inekf": {
+      "position_rmse_m": 32.88909167599043,
+      "position_final_m": 44.05192157445467,
+      "position_max_m": 45.76897533526305,
+      "so3_rmse_deg": 4.361632342024402,
+      "so3_p95_deg": 7.891958995216881,
+      "so3_final_deg": 7.492668093623089,
+      "rpy_rmse_deg": [
+        1.1053743620957484,
+        0.8519212650864549,
+        4.137567020362171
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.00217451299623959,
+          "so3_error_deg": 0.16087039341947243
+        },
+        "5s": {
+          "position_error_m": 0.513782050617797,
+          "so3_error_deg": 0.4443282537799441
+        },
+        "10s": {
+          "position_error_m": 0.600049748235379,
+          "so3_error_deg": 1.5395985151411058
+        },
+        "20s": {
+          "position_error_m": 3.913513473770178,
+          "so3_error_deg": 0.738546807200591
+        },
+        "30s": {
+          "position_error_m": 8.49922914997621,
+          "so3_error_deg": 1.219354541275503
+        },
+        "60s": {
+          "position_error_m": 20.582377022409712,
+          "so3_error_deg": 1.0525145072684927
+        },
+        "120s": {
+          "position_error_m": 42.529609883654075,
+          "so3_error_deg": 5.164592345195256
+        }
+      }
+    },
+    "airio_displacement_inekf": {
+      "position_rmse_m": 16.955165331930516,
+      "position_final_m": 17.55174173538188,
+      "position_max_m": 25.098429889276776,
+      "so3_rmse_deg": 3.393100861836333,
+      "so3_p95_deg": 6.353203808355729,
+      "so3_final_deg": 1.248106957482551,
+      "rpy_rmse_deg": [
+        1.128229054935095,
+        1.0202200087305453,
+        3.042771123569469
+      ],
+      "horizons": {
+        "1s": {
+          "position_error_m": 0.00217451299623959,
+          "so3_error_deg": 0.16087039341947243
+        },
+        "5s": {
+          "position_error_m": 0.3583840700263869,
+          "so3_error_deg": 0.3008280898371683
+        },
+        "10s": {
+          "position_error_m": 0.3246878371982481,
+          "so3_error_deg": 1.5866007884291087
+        },
+        "20s": {
+          "position_error_m": 2.0252441643709074,
+          "so3_error_deg": 0.8399194166985905
+        },
+        "30s": {
+          "position_error_m": 4.313237530821112,
+          "so3_error_deg": 1.0813620436852656
+        },
+        "60s": {
+          "position_error_m": 12.455149611335933,
+          "so3_error_deg": 1.7039440363531264
+        },
+        "120s": {
+          "position_error_m": 24.793225640772476,
+          "so3_error_deg": 5.923168577731939
+        }
+      }
+    }
+  },
+  "test_velocity_metrics_post_inference": {
+    "airio_velocity_inekf": {
+      "rmse_m_s": [
+        0.4325719589938143,
+        0.2827874301318489,
+        0.11089615161301503
+      ],
+      "bias_m_s": [
+        0.17106628918608074,
+        0.20099886368528455,
+        0.05797693305653452
+      ],
+      "one_sigma_coverage": [
+        0.9113778916840899,
+        0.5211438591758278,
+        0.8985634315775275
+      ],
+      "two_sigma_coverage": [
+        0.9995953328387401,
+        0.8142577729817225,
+        0.9848249814527551
+      ]
+    },
+    "airio_displacement_inekf": {
+      "rmse_m_s": [
+        0.47956491610491886,
+        0.24023407908096767,
+        0.09078275111385638
+      ],
+      "bias_m_s": [
+        -0.0013112664610869188,
+        0.11739296730266274,
+        0.022131979541028055
+      ],
+      "one_sigma_coverage": [
+        0.43137519390301476,
+        0.426586632494773,
+        0.8294327915289674
+      ],
+      "two_sigma_coverage": [
+        0.7143724286774128,
+        0.7319080056653403,
+        0.9877925406353274
+      ]
+    },
+    "small_tcn_heading": {
+      "rmse_m_s": [
+        0.1739699308581742,
+        0.21611730382058048,
+        0.04309065213962697
+      ],
+      "bias_m_s": [
+        0.0004897314998797755,
+        0.03009534224998941,
+        -0.002175029538529874
+      ],
+      "valid_samples": 14827
+    }
+  },
+  "final_training_loss": {
+    "airio_velocity_inekf": {
+      "total": -0.08344303410211816,
+      "velocity": 0.006767927244389806,
+      "uncertainty": -1.8043848305289152,
+      "displacement": 0.42098452811684595
+    },
+    "airio_displacement_inekf": {
+      "total": -0.06552827623529582,
+      "velocity": 0.007752324134096222,
+      "uncertainty": -1.7234061238676497,
+      "displacement": 0.036793100767364854
+    }
+  },
+  "method_definitions": {
+    "fixed_bias_imu": "fixed-bias InEKF prediction only",
+    "learned_velocity_inekf": "legacy ExtraTrees-style learned heading velocity fused through InEKF",
+    "small_tcn_loose": "existing heading-velocity TCN; velocity replaced and integrated outside InEKF",
+    "small_tcn_heading_inekf": "the same held-out heading-velocity prediction fused as an actual InEKF velocity update using training-run CV covariance",
+    "airio_velocity_inekf": "body IMU + estimated attitude -> body velocity and uncertainty -> actual InEKF update",
+    "airio_displacement_inekf": "same filter update, with auxiliary 0.5/1/2 s body displacement supervision during training"
+  }
+}
