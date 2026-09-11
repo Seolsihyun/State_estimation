@@ -18,8 +18,6 @@
 4. IMU-only prediction에서 covariance만 바꾸면 nominal trajectory는 바뀌지 않는다. 따라서 순수 IMU 적분과 learned velocity measurement update를 구분해 비교했다.
 5. Run 5 GT가 학습이나 추론에 들어가지 않도록 CF231을 leave-one-run-out으로 재구성했다. Run 3/4/9/10으로 학습하고 Run 5는 초기 상태·초기 IMU 보정·이후 IMU만 사용했다.
 
-수정 전 실험의 해석상 문제와 이론 통일 기준은 [`validation/INEKF_REVIEW.md`](validation/INEKF_REVIEW.md)에 남겼다.
-
 ## 상태와 식
 
 평균 상태는 `SE_2(3)` 행렬과 IMU bias로 구성한다.
